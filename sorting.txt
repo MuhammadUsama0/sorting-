@@ -1,0 +1,157 @@
+#include <iostream>
+#include <cstdlib>
+
+using namespace std;
+
+//Selection sort function
+void selectionSort(int arr[], int size ) {
+    int i, j, minIndex, temp;
+    for (i = 0; i < size - 1; i++) {
+        minIndex = i;
+        for (j = i + 1; j < size; j++) {
+            if (arr[j] < arr[minIndex] )
+                minIndex = j;
+        }
+        temp = arr[minIndex];
+        arr[i] = arr[minIndex];
+        arr[minIndex] = temp;
+    }
+}
+//Insertion sort function
+
+void insertionSort(int arr[], int size) {
+    int i, j, temp;
+    for (i = 1; i < size; i++) {
+        j = i;
+        while (j > 0 && arr[j - 1] > arr[j]) {
+            temp = arr[j];
+            arr[j] = arr[j - 1];
+            arr[j - 1] = temp;
+            j--;
+        }
+    }
+} 
+
+//Bubble sort function
+void bubbleSort(int arr[], int size) {
+    int temp;
+    int i, j;
+
+    for (i = 1; i <size ; i++) {
+        for (j = 0; j < size - i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+} 
+
+//Merge sort functions
+void merge(int arr[], int l, int m, int r) {
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    /* create temp arrays */
+    int L[n1], R[n2];
+
+    /* Copy data to temp arrays L[] and R[] */
+    for (i = 0; i < n1; i++)
+        L[i] = arr[l + i];
+    for (j = 0; j < n2; j++)
+        R[j] = arr[m + 1 + j];
+
+    /* Merge the temp arrays back into arr[l..r]*/
+    i = 0;
+    j = 0;
+    k = l;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        }
+        else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    /* Copy the remaining elements of L[], if there are any */
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    /* Copy the remaining elements of R[], if there are any */
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+/* l is for left index and r is right index of the sub-array
+  of arr to be sorted */
+void mergeSort(int dizi[], int l, int r) {
+    if (l < r) {
+        int m = l + (r - l) / 2; //Same as (l+r)/2, but avoids overflow for large l and h
+        mergeSort(dizi, l, m);
+        mergeSort(dizi, m + 1, r);
+        merge(dizi, l, m, r);
+    }
+} 
+
+//Quick sort function
+void quickSort(int arr[], int left, int right) {
+    int i = left, j = right;
+    int tmp;
+    int pivot = arr[(left + right) / 2];
+
+    /* partition */
+    while (i <= j) {
+        while (arr[i] < pivot)
+            i++;
+        while (arr[j] > pivot)
+            j--;
+        if (i <= j) {
+            tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+            i++;
+            j--;
+        }
+    };
+
+    /* recursion */
+    if (left < j)
+        quickSort(arr, left, j);
+    if (i < right)
+        quickSort(arr, i, right);
+}
+
+int main()
+ {
+    int  x;
+    cout << "Enter the Algorithm from which u want to sort " << endl;
+    cout << "1) Selection sort " << endl;
+    cout << "2) insertion sort " << endl;
+    cout << "3) Bubble sort    " << endl;
+    cout<<  "4) Merge Sort     " << endl;
+    cout<<  "5) Quick Sort     " << endl;
+    cin>>x;
+    cout<<"Enter The Array You Want to Sort "<< x<<endl;
+    system("pause");
+    
+    
+    	
+    	
+		 	
+	
+    	   
+    return 0;
+
+}
